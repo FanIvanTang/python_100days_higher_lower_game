@@ -16,30 +16,34 @@ def clear():
         _ = system("clear")
 
 
-def choose_two_items_from_data():
+def choose_two_items_from_data(item_a):
     """
     random pick 2 items from data,
     print info in the console
     and return A or B who has bigger follower
 
     """
+    item_b = random.choice(data)
 
-    competitors = random.sample(data, 2)
-    a = competitors[0]
-    b = competitors[1]
+    while item_a == item_b:
+        item_b = random.choice(data)
 
     print(logo)
 
-    print(f"Compare A: {a['name']}, {a['description']}, from {a['country']}.")
+    print(
+        f"Compare A: { item_a['name']}, { item_a['description']}, from { item_a['country']}."
+    )
 
     print(vs)
 
-    print(f"Against B: {b['name']}, {b['description']}, from {b['country']}.")
+    print(
+        f"Against B: { item_b['name']}, { item_b['description']}, from { item_b['country']}."
+    )
 
-    if a["follower_count"] > b["follower_count"]:
-        return "a"
+    if item_a["follower_count"] > item_b["follower_count"]:
+        return ("a", item_b)
     else:
-        return "b"
+        return ("b", item_b)
 
 
 def user_guess(correct_answer):
@@ -64,9 +68,11 @@ if __name__ == "__main__":
 
     score = 0
 
+    a = random.choice(data)
+
     while is_continue:
 
-        right_answer = choose_two_items_from_data()
+        right_answer, a = choose_two_items_from_data(item_a=a)
 
         is_continue = user_guess(correct_answer=right_answer)
 
